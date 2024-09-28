@@ -455,7 +455,7 @@ namespace PvZHMod
                     data.startWithEffects =
                     [
                         SStack("Ignore Damage",1),
-                        SStack("Grave Reveal Exploding",1),
+                        SStack("Grave Reveal Exploding Imp",1),
                         SStack("Grave Open",1)
                     ];
                 }));
