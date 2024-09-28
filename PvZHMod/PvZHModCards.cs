@@ -435,13 +435,12 @@ namespace PvZHMod
                     data.startWithEffects =
                     [
                         SStack("MultiHit",1),
-                        //SStack("Temp Removeable Longshot",2)
                     ];
                     
                     data.traits =
                     [
                         TStack("Overshoot",2),
-                        TStack("Set Attack To Overshoot Stacks(No Desc)",1)
+                        //TStack("Set Attack To Overshoot Stacks(No Desc)",1)
                     ];
                     
                 }));
