@@ -773,7 +773,7 @@ namespace PvZHMod
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-
+            /*
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
@@ -783,7 +783,7 @@ namespace PvZHMod
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
 
-            /*
+            
             assets.Add(
                 new TraitDataBuilder(this).Create("Set Attack To Overshoot Stacks(No Desc)")
                 .SubscribeToAfterAllBuildEvent(
