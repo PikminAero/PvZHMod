@@ -435,12 +435,14 @@ namespace PvZHMod
                     data.startWithEffects =
                     [
                         SStack("MultiHit",1),
-                        //SStack("Temp Removeable Longshot",2)
+                        SStack("Temp Removeable Longshot",2)
                     ];
+                    /*
                     data.traits =
                     [
                         TStack("Overshoot",2)
                     ];
+                    */
                 }));
 
 
@@ -707,7 +709,7 @@ namespace PvZHMod
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-
+            /*
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
@@ -716,7 +718,7 @@ namespace PvZHMod
                         trait.keyword = TryGet<KeywordData>("overshoot");
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
-
+            */
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM KEYWORDS
