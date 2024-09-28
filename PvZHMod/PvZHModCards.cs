@@ -691,7 +691,7 @@ namespace PvZHMod
             assets.Add(
                 new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Temp Removeable Longshot")
                 .WithText("{0} <{a}>")
-                .WithTextInsert("<keyword=overshoot>")
+                .WithTextInsert($"<keyword={GUID}.overshoot>")
                 .WithType("")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
