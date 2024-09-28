@@ -434,7 +434,6 @@ namespace PvZHMod
                 {
                     data.startWithEffects =
                     [
-                        //SStack("Pre Trigger Apply Overshoot",1),
                         SStack("MultiHit",1),
                         SStack("Temp Removeable Longshot",1)
                     ];
@@ -670,23 +669,6 @@ namespace PvZHMod
                 }));
 
 
-
-
-
-
-
-
-
-            
-            assets.Add(
-                StatusCopy("Pre Turn Take Gold", "Pre Turn Apply Overshoot")
-                .WithText("{0} <{a}>")
-                .WithTextInsert($"<keyword={GUID}.overshoot>")
-                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
-                {
-                    ((StatusEffectApplyXPreTurn)data).effectToApply = TryGet<StatusEffectData>("Temp Removeable Longshot");
-                }));
-
             assets.Add(
                 StatusCopy("Pre Trigger Gain Frenzy Equal To Scrap", "Pre Trigger Apply Overshoot")
                 .WithText("{0} <{a}>")
@@ -707,28 +689,13 @@ namespace PvZHMod
 
 
             assets.Add(
-                new StatusEffectDataBuilder(this).Create<StatusEffectTemporaryTraitRemove>("Temp Removeable Longshot")
-                .WithText("Overshoot sucks!!!!!")
+                new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Temp Removeable Longshot")
+                .WithText("<keyword=overshoot> <{a}>")
                 .WithType("")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
-                    ((StatusEffectTemporaryTraitRemove)data).trait = TryGet<TraitData>("Longshot");
+                    ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
-
-            /*
-            assets.Add(
-                StatusCopy("On Card Played Apply Block To Self", "On Card Played Remove Longshot")
-                .WithText("")
-                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
-                {
-                    ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Remove Temp Longshot");
-                }));
-            */
-
-
-
-
-
 
 
 
