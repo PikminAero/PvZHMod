@@ -440,7 +440,8 @@ namespace PvZHMod
                     
                     data.traits =
                     [
-                        TStack("Overshoot",2)
+                        TStack("Overshoot",2),
+                        TStack("Set Attack To Overshoot Stacks(No Desc)",1)
                     ];
                     
                 }));
@@ -781,10 +782,10 @@ namespace PvZHMod
             assets.Add(
                 new KeywordDataBuilder(this)
                 .Create("none")
-                .WithTitle("")
+                .WithTitle("None")
                 .WithShowName(false)
                 .WithShow(false)
-                .WithDescription("")
+                .WithDescription("No desc")
                 .WithCanStack(false)
                 );
 
