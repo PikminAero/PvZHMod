@@ -710,7 +710,6 @@ namespace PvZHMod
 
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
-                .WithKeyword(TryGet<KeywordData>($"{GUID}.overshoot"))
                 .SubscribeToAfterAllBuildEvent(
                     (trait) =>
                     {
