@@ -704,12 +704,21 @@ namespace PvZHMod
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
 
+            assets.Add(
+                StatusCopy("Apply Haze", "Set Attack To Overshoot Stacks")
+                .WithCanBeBoosted(true)
+                .WithText("When deployed, gain <{a}> <keyword=spice> per Dancing Zombie on the field.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantApplyEffect)data).scriptableAmount = ScriptableObject.CreateInstance<ScriptableOvershootStacks>();
+                    ((StatusEffectInstantApplyEffect)data).effectToApply = TryGet<StatusEffectData>("Set Attack");
+                }));
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-            
+
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
@@ -717,6 +726,15 @@ namespace PvZHMod
                     {
                         trait.keyword = TryGet<KeywordData>("overshoot");
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
+                    }));
+
+            assets.Add(
+                new TraitDataBuilder(this).Create("Set Attack To Overshoot Stacks(No Desc)")
+                .SubscribeToAfterAllBuildEvent(
+                    (trait) =>
+                    {
+                        trait.keyword = TryGet<KeywordData>("noKeyword");
+                        trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Set Attack To Overshoot Stacks") };
                     }));
             
 
@@ -757,14 +775,15 @@ namespace PvZHMod
                 .WithDescription("Deal damage equal to the current stack to the enemy in the back of the row.|If there's only one enemy, it will take that damage and the card's normal damage!")
                 .WithNoteColour(new Color(0.85f, 0.85f, 0.45f))
                 .WithBodyColour(new Color(0.50f, 0.50f, 0.50f))
-                .WithCanStack(false)
+                .WithCanStack(true)
                 );
 
             assets.Add(
                 new KeywordDataBuilder(this)
-                .Create("none")
+                .Create("noKeyword")
                 .WithTitle("")
-                .WithShowName(true)
+                .WithShowName(false)
+                .WithShow(false)
                 .WithDescription("")
                 .WithCanStack(false)
                 );
