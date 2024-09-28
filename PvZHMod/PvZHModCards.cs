@@ -760,6 +760,15 @@ namespace PvZHMod
                 .WithCanStack(false)
                 );
 
+            assets.Add(
+                new KeywordDataBuilder(this)
+                .Create("none")
+                .WithTitle("")
+                .WithShowName(true)
+                .WithDescription("")
+                .WithCanStack(false)
+                );
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM CHARMS
             ///////////////////////////////////////////////////////////////////////////////
