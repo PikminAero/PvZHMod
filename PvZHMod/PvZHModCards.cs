@@ -440,7 +440,6 @@ namespace PvZHMod
                     data.traits =
                     [
                         TStack("Overshoot",2),
-                        //TStack("Set Attack To Overshoot Stacks(No Desc)",1)
                     ];
                     
                 }));
@@ -703,7 +702,7 @@ namespace PvZHMod
                 {
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
-
+            /*
             assets.Add(
                 StatusCopy("Apply Haze", "Set Attack To Overshoot Stacks")
                 .WithCanBeBoosted(true)
@@ -713,12 +712,13 @@ namespace PvZHMod
                     ((StatusEffectInstantApplyEffect)data).scriptableAmount = ScriptableObject.CreateInstance<ScriptableOvershootStacks>();
                     ((StatusEffectInstantApplyEffect)data).effectToApply = TryGet<StatusEffectData>("Set Attack");
                 }));
+            */
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-
+            
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
