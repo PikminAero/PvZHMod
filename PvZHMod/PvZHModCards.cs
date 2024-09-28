@@ -424,7 +424,7 @@ namespace PvZHMod
                 }));
 
             // Loose Cannon
-
+            /*
             assets.Add(
                 new CardDataBuilder(this).CreateUnit("LooseCannon", "Loose Cannon")
                 .SetSprites("LooseCannon.png", "crazy_zombie_bg.png")
@@ -441,10 +441,9 @@ namespace PvZHMod
                     [
                         TStack("Overshoot",2),
                     ];
-                    
                 }));
-
-
+                */
+    
             
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
