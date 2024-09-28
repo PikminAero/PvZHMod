@@ -733,7 +733,7 @@ namespace PvZHMod
                 .SubscribeToAfterAllBuildEvent(
                     (trait) =>
                     {
-                        trait.keyword = TryGet<KeywordData>("noKeyword");
+                        trait.keyword = TryGet<KeywordData>("none");
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Set Attack To Overshoot Stacks") };
                     }));
             
@@ -780,7 +780,7 @@ namespace PvZHMod
 
             assets.Add(
                 new KeywordDataBuilder(this)
-                .Create("noKeyword")
+                .Create("none")
                 .WithTitle("")
                 .WithShowName(false)
                 .WithShow(false)
