@@ -423,7 +423,7 @@ namespace PvZHMod
                     ];
                 }));
 
-            // Loose Cannon
+            // Loose Cannon (FUCKING PIECE OF SHIT CARD I HOPE YOU DIE)
             /*
             assets.Add(
                 new CardDataBuilder(this).CreateUnit("LooseCannon", "Loose Cannon")
