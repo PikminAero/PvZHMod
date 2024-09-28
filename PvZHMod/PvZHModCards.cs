@@ -714,7 +714,7 @@ namespace PvZHMod
                     (trait) =>
                     {
                         trait.keyword = TryGet<KeywordData>("overshoot");
-                        trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removable Longshot") };
+                        trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
 
 
