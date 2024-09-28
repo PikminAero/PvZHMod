@@ -443,8 +443,38 @@ namespace PvZHMod
                     ];
                 }));
                 */
-    
-            
+
+            // Gravestone (Exploding Imp)
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("GraveExplodingImp", "Gravestone: Exploding Imp")
+                .SetSprites("GraveExplodingImp.png", "crazy_zombie_bg.png")
+                .SetStats(1, null, 3)
+                .WithCardType("Clunker")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("Ignore Damage",1),
+                        SStack("Grave Reveal Exploding",1),
+                        SStack("Grave Open",1)
+                    ];
+                }));
+
+            // Exploding Imp
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("ExplodingImp", "Exploding Imp")
+                .SetSprites("ExplodingImp.png", "crazy_zombie_bg.png")
+                .SetStats(1, 6, 2)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("Destroy Self After Turn",1)
+                    ];
+                }));
+
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
@@ -672,7 +702,7 @@ namespace PvZHMod
                     ((StatusEffectInstantSummon)data).summonPosition = StatusEffectInstantSummon.Position.AppliersPosition;
                 }));
 
-
+            /*
             assets.Add(
                 StatusCopy("Pre Trigger Gain Frenzy Equal To Scrap", "Pre Trigger Apply Overshoot")
                 .WithText("{0} <{a}>")
@@ -701,7 +731,7 @@ namespace PvZHMod
                 {
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
-            /*
+            
             assets.Add(
                 StatusCopy("Apply Haze", "Set Attack To Overshoot Stacks")
                 .WithCanBeBoosted(true)
@@ -713,11 +743,37 @@ namespace PvZHMod
                 }));
             */
 
+            assets.Add(
+                StatusCopy("When Destroyed Summon Dregg", "Grave Reveal Exploding Imp")
+                .WithCanBeBoosted(false)
+                .WithText($"<keyword={GUID}.gravestone>. When revealed, summon a <card={GUID}.ExplodingImp>.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenDestroyed)data).effectToApply = TryGet<StatusEffectData>("Instant Summon Exploding Imp");
+                }));
+
+            assets.Add(
+                StatusCopy("Summon Fallow", "Summon Exploding Imp")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectSummon)data).summonCard = TryGet<CardData>("ExplodingImp");
+                    ((StatusEffectSummon)data).gainTrait = null;
+                }));
+
+            assets.Add(
+                StatusCopy("Instant Summon Junk In Hand", "Instant Summon Exploding Imp")
+                .WithText($"Summon a <card={GUID}.CongaZombie>.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantSummon)data).targetSummon = TryGet<StatusEffectSummon>("Summon Exploding Imp");
+                    ((StatusEffectInstantSummon)data).summonPosition = StatusEffectInstantSummon.Position.AppliersPosition;
+                }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-            
+
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
