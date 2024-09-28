@@ -728,7 +728,7 @@ namespace PvZHMod
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
 
-            /*
+            
             assets.Add(
                 new TraitDataBuilder(this).Create("Set Attack To Overshoot Stacks(No Desc)")
                 .SubscribeToAfterAllBuildEvent(
@@ -737,7 +737,7 @@ namespace PvZHMod
                         trait.keyword = TryGet<KeywordData>("none");
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Set Attack To Overshoot Stacks") };
                     }));
-            */
+            
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM KEYWORDS
@@ -779,6 +779,7 @@ namespace PvZHMod
                 .WithCanStack(true)
                 );
 
+            /*
             assets.Add(
                 new KeywordDataBuilder(this)
                 .Create("none")
@@ -788,6 +789,7 @@ namespace PvZHMod
                 .WithDescription("No desc")
                 .WithCanStack(false)
                 );
+            */
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM CHARMS
