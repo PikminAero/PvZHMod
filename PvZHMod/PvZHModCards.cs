@@ -474,6 +474,60 @@ namespace PvZHMod
                     ];
                 }));
 
+            // Gizzard Lizzard (Item)
+            assets.Add(
+                new CardDataBuilder(this).CreateItem("LizardItem","Lizard Treat")
+                .SetSprites("LizardTreat.png","crazy_zombie_bg.png")
+                .WithCardType("Item")
+                .CanPlayOnBoard(true)
+                .CanPlayOnEnemy(false)
+                .CanPlayOnFriendly(true)
+                .CanPlayOnHand(false)
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.attackEffects =
+                    [
+                        SStack("Sacrifice Ally",1),
+                        SStack("Instant Summon Gizzard Lizard",1)
+                    ];
+                    data.startWithEffects =
+                    [
+                        SStack("When Destroyed Apply Damage To Enemies",2)
+                    ];
+                    data.traits =
+                    [
+                        TStack("Consume",1)
+                    ];
+                }));
+
+            // Gizzard Lizard (Unit)
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("GizzardLizard", "Gizzard Lizard")
+                .SetSprites("GizzardLizard.png", "crazy_zombie_bg.png")
+                .SetStats(3, 3, 3)
+                .WithCardType("Friendly")
+                .WithFlavour("He is the missing skink.")
+                );
+
+
+            // The Chickening
+            assets.Add(
+                new CardDataBuilder(this).CreateItem("ChickenAttack", "The Chickening")
+                .SetSprites("ChickenAttack.png", "crazy_zombie_bg.png")
+                .SetDamage(2)
+                .WithCardType("Item")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("Hit All Enemies",2)
+                    ];
+                    data.traits =
+                    [
+                        TStack("Consume",1)
+                    ];
+                }));
+            
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
@@ -768,6 +822,32 @@ namespace PvZHMod
                     ((StatusEffectInstantSummon)data).targetSummon = TryGet<StatusEffectSummon>("Summon Exploding Imp");
                     ((StatusEffectInstantSummon)data).summonPosition = StatusEffectInstantSummon.Position.AppliersPosition;
                 }));
+
+            assets.Add(
+                StatusCopy("When Destroyed Apply Damage To Allies", "When Destroyed Apply Damage To Enemies")
+                .WithText("When destroyed, deal <{a}> damage to all enemies.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenDestroyed)data).applyToFlags = StatusEffectApplyX.ApplyToFlags.Enemies;
+                }));
+
+
+            assets.Add(
+                StatusCopy("Summon Fallow", "Summon Gizzard Lizard")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectSummon)data).summonCard = TryGet<CardData>("GizzardLizard");
+                    ((StatusEffectSummon)data).gainTrait = null;
+                }));
+
+            assets.Add(
+                StatusCopy("Instant Summon Fallow", "Instant Summon Gizzard Lizard")
+                .WithText($"Summon a <card={GUID}.DiscoZombie>.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantSummon)data).targetSummon = TryGet<StatusEffectSummon>("Summon Gizzard Lizard");
+                }));
+
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS

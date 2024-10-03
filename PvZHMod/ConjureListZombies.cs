@@ -176,7 +176,8 @@ namespace PvZHMod
         {
             public static List<String> zombies = new List<String>()
             {
-                $"{GUID}.CuckooZombie"
+                $"{GUID}.CuckooZombie",
+                $"{GUID}.GizzardLizard"
             };
 
             public static List<String> tricks = new List<string>()
@@ -295,12 +296,35 @@ namespace PvZHMod
         {
             public static List<String> zombies = new List<String>()
             {
-
+                $"{GUID}.ExplodingImp"
             };
 
             public static List<String> tricks = new List<string>()
             {
                 $"{GUID}.Cakesplosion"
+            };
+
+            public static List<String> environments = new List<string>()
+            {
+
+            };
+
+            public static List<String> gravestones = new List<string>()
+            {
+                $"{GUID}.GraveExplodingImp"
+            };
+        }
+
+        public class Monster
+        {
+            public static List<String> zombies = new List<String>()
+            {
+                $"{GUID}.GizzardLizard"
+            };
+
+            public static List<String> tricks = new List<string>()
+            {
+
             };
 
             public static List<String> environments = new List<string>()
@@ -327,6 +351,8 @@ namespace PvZHMod
                 .. Professional.zombies,
                 .. Gourmet.zombies,
                 .. Sports.zombies,
+                .. Imp.zombies,
+                .. Monster.zombies,
             ];
 
             public static List<String> tricks =
@@ -340,6 +366,8 @@ namespace PvZHMod
                 .. Professional.tricks,
                 .. Gourmet.tricks,
                 .. Sports.tricks,
+                .. Imp.tricks,
+                .. Monster.tricks,
             ];
 
             public static List<String> environments =
@@ -353,6 +381,8 @@ namespace PvZHMod
                 .. Professional.environments,
                 .. Gourmet.environments,
                 .. Sports.environments,
+                .. Imp.environments,
+                .. Monster.environments,
                 $"{GUID}.MeteorZ"
             ];
 
@@ -367,6 +397,8 @@ namespace PvZHMod
                 .. Professional.gravestones,
                 .. Gourmet.gravestones,
                 .. Sports.gravestones,
+                .. Imp.gravestones,
+                .. Monster.gravestones,
             ];
         }
     }
