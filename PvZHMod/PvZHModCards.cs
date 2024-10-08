@@ -423,7 +423,7 @@ namespace PvZHMod
                     ];
                 }));
 
-            // Loose Cannon (FUCKING PIECE OF SHIT CARD I HOPE YOU DIE)
+            // Loose Cannon (eye forgive you :3)
             
             assets.Add(
                 new CardDataBuilder(this).CreateUnit("LooseCannon", "Loose Cannon")
@@ -435,12 +435,9 @@ namespace PvZHMod
                     data.startWithEffects =
                     [
                         SStack("MultiHit",1),
+                        SStack("Overshoot",1)
                     ];
-                    
-                    data.traits =
-                    [
-                        TStack("Overshoot",1),
-                    ];
+                   
                 }));
                 
 
@@ -801,7 +798,7 @@ namespace PvZHMod
                 .WithTextInsert($"<keyword={GUID}.overshoot>")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
-                    ((StatusEffectApplyXPreTrigger)data).effectToApply = TryGet<StatusEffectData>("Temp Removeable Longshot");
+                    ((StatusEffectApplyXPreTrigger)data).effectToApply = TryGet<StatusEffectData>("Overshoot");
                 }));
 
 
@@ -815,10 +812,9 @@ namespace PvZHMod
             */
 
             assets.Add(
-                new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Temp Removeable Longshot")
-                .WithText("{0} <{a}>")
-                .WithTextInsert($"<keyword={GUID}.overshoot>")
+                new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Overshoot")
                 .WithType("")
+                .WithCanBeBoosted(false)
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
@@ -909,16 +905,6 @@ namespace PvZHMod
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
-
-
-            assets.Add(
-                new TraitDataBuilder(this).Create("Overshoot")
-                .SubscribeToAfterAllBuildEvent(
-                    (trait) =>
-                    {
-                        trait.keyword = TryGet<KeywordData>($"{GUID}.overshoot");
-                        trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
-                    }));
 
             /*
             assets.Add(
