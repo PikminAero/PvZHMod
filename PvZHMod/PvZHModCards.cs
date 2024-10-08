@@ -541,7 +541,32 @@ namespace PvZHMod
                         SStack("When Hit Summon Random Imp",1)
                     ];
                 }));
-            
+
+            // Final Mission
+            assets.Add(
+                new CardDataBuilder(this).CreateItem("FinalMission", "Final Mission")
+                .SetSprites("FinalMission.png", "crazy_zombie_bg.png")
+                .WithCardType("Item")
+                .CanPlayOnBoard(true)
+                .CanPlayOnEnemy(false)
+                .CanPlayOnFriendly(true)
+                .CanPlayOnHand(false)
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.attackEffects =
+                    [
+                        SStack("Sacrifice Ally",1),
+                    ];
+                    data.startWithEffects =
+                    [
+                        SStack("When Destroyed Apply Damage To Enemies",4)
+                    ];
+                    data.traits =
+                    [
+                        TStack("Consume",1)
+                    ];
+                }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
@@ -769,7 +794,7 @@ namespace PvZHMod
                     ((StatusEffectInstantSummon)data).summonPosition = StatusEffectInstantSummon.Position.AppliersPosition;
                 }));
 
-            
+            /*
             assets.Add(
                 StatusCopy("Pre Trigger Gain Frenzy Equal To Scrap", "Pre Trigger Apply Overshoot")
                 .WithText("{0} <{a}>")
@@ -787,7 +812,7 @@ namespace PvZHMod
                 {
                     ((StatusEffectTemporaryTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
-
+            */
 
             assets.Add(
                 new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Temp Removeable Longshot")
@@ -891,7 +916,7 @@ namespace PvZHMod
                 .SubscribeToAfterAllBuildEvent(
                     (trait) =>
                     {
-                        trait.keyword = TryGet<KeywordData>("overshoot");
+                        trait.keyword = TryGet<KeywordData>($"{GUID}.overshoot");
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
 
@@ -940,7 +965,7 @@ namespace PvZHMod
                 .WithTitle("Overshoot")
                 .WithTitleColour(new UnityEngine.Color(0.85f, 0.85f, 0.45f))
                 .WithShowName(true)
-                .WithDescription("Deal damage equal to the current stack to the enemy in the back of the row.|If there's only one enemy, it will take that damage and the card's normal damage!")
+                .WithDescription("Deal damage to the enemy in the back of the row alongside the regular target.|If there's only one enemy, it will take that damage and the card's normal damage!")
                 .WithNoteColour(new Color(0.85f, 0.85f, 0.45f))
                 .WithBodyColour(new Color(0.50f, 0.50f, 0.50f))
                 .WithCanStack(true)
