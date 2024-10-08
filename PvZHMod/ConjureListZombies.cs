@@ -338,6 +338,52 @@ namespace PvZHMod
             };
         }
 
+        public class Gargantuar
+        {
+            public static List<String> zombies = new List<String>()
+            {
+                $"{GUID}.ImpThrowGarg"
+            };
+
+            public static List<String> tricks = new List<string>()
+            {
+
+            };
+
+            public static List<String> environments = new List<string>()
+            {
+
+            };
+
+            public static List<String> gravestones = new List<string>()
+            {
+
+            };
+        }
+
+        public class Pirate
+        {
+            public static List<String> zombies = new List<String>()
+            {
+                $"{GUID}.ImpThrowGarg"
+            };
+
+            public static List<String> tricks = new List<string>()
+            {
+
+            };
+
+            public static List<String> environments = new List<string>()
+            {
+
+            };
+
+            public static List<String> gravestones = new List<string>()
+            {
+
+            };
+        }
+
         public class All
         {
             public static List<String> zombies =
@@ -353,6 +399,8 @@ namespace PvZHMod
                 .. Sports.zombies,
                 .. Imp.zombies,
                 .. Monster.zombies,
+                .. Pirate.zombies,
+                .. Gargantuar.zombies,
             ];
 
             public static List<String> tricks =
@@ -368,6 +416,8 @@ namespace PvZHMod
                 .. Sports.tricks,
                 .. Imp.tricks,
                 .. Monster.tricks,
+                .. Pirate.tricks,
+                .. Gargantuar.tricks,
             ];
 
             public static List<String> environments =
@@ -383,6 +433,8 @@ namespace PvZHMod
                 .. Sports.environments,
                 .. Imp.environments,
                 .. Monster.environments,
+                .. Pirate.environments,
+                .. Gargantuar.environments,
                 $"{GUID}.MeteorZ"
             ];
 
@@ -399,6 +451,8 @@ namespace PvZHMod
                 .. Sports.gravestones,
                 .. Imp.gravestones,
                 .. Monster.gravestones,
+                .. Pirate.gravestones,
+                .. Gargantuar.gravestones,
             ];
         }
     }

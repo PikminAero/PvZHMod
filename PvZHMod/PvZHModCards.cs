@@ -424,7 +424,7 @@ namespace PvZHMod
                 }));
 
             // Loose Cannon (FUCKING PIECE OF SHIT CARD I HOPE YOU DIE)
-            /*
+            
             assets.Add(
                 new CardDataBuilder(this).CreateUnit("LooseCannon", "Loose Cannon")
                 .SetSprites("LooseCannon.png", "crazy_zombie_bg.png")
@@ -439,10 +439,10 @@ namespace PvZHMod
                     
                     data.traits =
                     [
-                        TStack("Overshoot",2),
+                        TStack("Overshoot",1),
                     ];
                 }));
-                */
+                
 
             // Gravestone (Exploding Imp)
             assets.Add(
@@ -527,8 +527,21 @@ namespace PvZHMod
                         TStack("Consume",1)
                     ];
                 }));
-            
 
+            // Imp-Throwing Gargantuar
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("ImpThrowGarg", "Imp-Throwing Gargantuar")
+                .SetSprites("ImpThrowGarg.png", "crazy_zombie_bg.png")
+                .SetStats(5, 5, 5)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("When Hit Summon Random Imp",1)
+                    ];
+                }));
+            
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
@@ -756,7 +769,7 @@ namespace PvZHMod
                     ((StatusEffectInstantSummon)data).summonPosition = StatusEffectInstantSummon.Position.AppliersPosition;
                 }));
 
-            /*
+            
             assets.Add(
                 StatusCopy("Pre Trigger Gain Frenzy Equal To Scrap", "Pre Trigger Apply Overshoot")
                 .WithText("{0} <{a}>")
@@ -786,6 +799,8 @@ namespace PvZHMod
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
             
+           
+            /*
             assets.Add(
                 StatusCopy("Apply Haze", "Set Attack To Overshoot Stacks")
                 .WithCanBeBoosted(true)
@@ -848,12 +863,29 @@ namespace PvZHMod
                     ((StatusEffectInstantSummon)data).targetSummon = TryGet<StatusEffectSummon>("Summon Gizzard Lizard");
                 }));
 
+            assets.Add(
+                new StatusEffectDataBuilder(this).Create<StatusEffectInstantSummonRandomZombieFromTribe>("Instant Summon Random Imp")
+                .WithCanBeBoosted(false)
+                .WithType("")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantSummonRandomZombieFromTribe)data).targetSummon = TryGet<StatusEffectSummon>("Summon Plep");
+                    ((StatusEffectInstantSummonRandomZombieFromTribe)data).zombies = ConjureZombie.Imp.zombies;
+                }));
+
+            assets.Add(
+                StatusCopy("When Hit Draw", "When Hit Summon Random Imp")
+                .WithText($"When hit, summon a random Imp.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenHit)data).effectToApply = TryGet<StatusEffectInstantSummonRandomZombieFromTribe>("Instant Summon Random Imp");
+                }));
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
 
-            /*
+
             assets.Add(
                 new TraitDataBuilder(this).Create("Overshoot")
                 .SubscribeToAfterAllBuildEvent(
@@ -863,7 +895,7 @@ namespace PvZHMod
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Temp Removeable Longshot") };
                     }));
 
-            
+            /*
             assets.Add(
                 new TraitDataBuilder(this).Create("Set Attack To Overshoot Stacks(No Desc)")
                 .SubscribeToAfterAllBuildEvent(
