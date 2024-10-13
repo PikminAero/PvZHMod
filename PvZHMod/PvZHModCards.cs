@@ -960,6 +960,8 @@ namespace PvZHMod
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
                     ((StatusEffectBonusDamageEqualToX)data).scriptableAmount = ScriptableObject.CreateInstance<ScriptableBonusDamageIfRowFull>();
+                    ((StatusEffectBonusDamageEqualToX)data).on = StatusEffectBonusDamageEqualToX.On.ScriptableAmount;
+                    ((StatusEffectBonusDamageEqualToX)data).health = false;
                 }));
 
             ///////////////////////////////////////////////////////////////////////////////
