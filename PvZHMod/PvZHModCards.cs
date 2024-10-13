@@ -955,7 +955,7 @@ namespace PvZHMod
                 }));
 
             assets.Add(
-                StatusCopy("Boost Damage Equal To Scrap", "Bonus Damage If Row Full")
+                StatusCopy("Bonus Damage Equal To Scrap", "Bonus Damage If Row Full")
                 .WithText("Deal <{a}> additional damage if the target's row is full.")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
