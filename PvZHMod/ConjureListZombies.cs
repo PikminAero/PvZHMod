@@ -9,7 +9,9 @@ namespace PvZHMod
 {
     public static class ConjureZombie
     {
-        public static string GUID => PvZHModCards.Instance.GUID;
+        private static string GUID => PvZHModCards.Instance.GUID;
+
+        // private static System.Random rnd = new System.Random();
 
         public enum ZombieTribes
         {
@@ -27,14 +29,18 @@ namespace PvZHMod
         {
             Zombies,
             Tricks,
-            Environments
+            Environments,
+            Gravestones
         }
 
         public static String GetRandomZombie()
         {
-            System.Random rnd = new System.Random();
+
+            return ConjureZombie.All.zombies.RandomItem();
+            // return ConjureZombie.All.zombies[rnd.Next(ConjureZombie.All.zombies.Count)];
+            /*
             // var randomTribe = rnd.Next(0,16) // 16 total zombie tribes
-            var randomTribe = rnd.Next(0,8); // 8 currently implemented
+            var randomTribe = rnd.Next(0,14); // 14 currently implemented
             int randomElem;
             Debug.Log($"Value of randomTribe: [{randomTribe}]");
             switch (randomTribe)
@@ -63,16 +69,23 @@ namespace PvZHMod
                 case 7: // Gourmet
                     randomElem = rnd.Next(0, ConjureZombie.Gourmet.zombies.Count());
                     return ConjureZombie.Gourmet.zombies[randomElem];
+                case 8: // Sports
+                    randomElem = rnd.Next(0, ConjureZombie.Sports.zombies.Count());
+                    return ConjureZombie.Sports.zombies[randomElem];
+                case 9: // Imp
+                    randomElem = rnd.Next(0, ConjureZombie.Imp.zombies.Count());
+                    return ConjureZombie.Gourmet.zombies[randomElem];
                 default:
                     return null;
             }
-
+            */ 
         }
 
         public static string GetRandomCardFromTribe(ZombieTribes tribe, CardTypes type)
         {
             return "";
         }
+
 
         public class Dancing
         {
@@ -84,7 +97,8 @@ namespace PvZHMod
                 $"{GUID}.JesterZombie",
                 $"{GUID}.UnlifeParty",
                 $"{GUID}.FlamencoZombie",
-                $"{GUID}.CongaZombie"
+                $"{GUID}.CongaZombie",
+                $"{GUID}.CosmicDancer",
             };
 
             public static List<String> tricks = new List<string>()
@@ -130,12 +144,12 @@ namespace PvZHMod
         {
             public static List<String> zombies = new List<String>()
             {
-                $"{GUID}.Discobot"
+                $"{GUID}.Discobot",
             };
 
             public static List<String> tricks = new List<string>()
             {
-
+                $"{GUID}.FinalMission",
             };
 
             public static List<String> environments = new List<string>()
@@ -182,7 +196,7 @@ namespace PvZHMod
 
             public static List<String> tricks = new List<string>()
             {
-
+                $"{GUID}.ChickenAttack"
             };
 
             public static List<String> environments = new List<string>()
@@ -296,7 +310,8 @@ namespace PvZHMod
         {
             public static List<String> zombies = new List<String>()
             {
-                $"{GUID}.ExplodingImp"
+                $"{GUID}.ExplodingImp",
+                $"{GUID}.LooseCannon"
             };
 
             public static List<String> tricks = new List<string>()
@@ -371,6 +386,29 @@ namespace PvZHMod
             public static List<String> tricks = new List<string>()
             {
 
+            };
+
+            public static List<String> environments = new List<string>()
+            {
+
+            };
+
+            public static List<String> gravestones = new List<string>()
+            {
+
+            };
+        }
+
+        public class Barrel
+        {
+            public static List<String> zombies = new List<String>()
+            {
+                $"{GUID}.LooseCannon",
+            };
+
+            public static List<String> tricks = new List<string>()
+            {
+                $"{GUID}.FinalMission",
             };
 
             public static List<String> environments = new List<string>()

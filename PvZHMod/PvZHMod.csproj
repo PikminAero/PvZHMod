@@ -444,6 +444,7 @@
     <Compile Include="ScriptableAllyNbr.cs" />
     <Compile Include="PvZHModCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptableBonusDamageIfRowFull.cs" />
     <Compile Include="ScriptableFlamencoEffect.cs" />
     <Compile Include="ScriptableOvershootStacks.cs" />
     <Compile Include="ScriptableRandomZombie.cs" />

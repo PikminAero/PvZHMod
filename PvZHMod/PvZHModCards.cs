@@ -564,6 +564,34 @@ namespace PvZHMod
                     ];
                 }));
 
+            // Cosmic Dancer
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("CosmicDancer", "Cosmic Dancer")
+                .SetSprites("CosmicDancer.png", "crazy_zombie_bg.png")
+                .SetStats(3, 2, 4)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("When Deployed Summon Random Dancing With Overshoot",1)
+                    ];
+                }));
+
+            // Zombot's Wrath
+            assets.Add(
+                new CardDataBuilder(this).CreateItem("ZombotWrath", "Zombot's Wrath")
+                .SetSprites("ZombotWrath.png", "crazy_zombie_bg.png")
+                .SetDamage(3)
+                .WithCardType("Item")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.attackEffects =
+                    [
+                        SStack("Bonus Damage If Row Full",3)
+                    ];
+                }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
@@ -814,6 +842,7 @@ namespace PvZHMod
             assets.Add(
                 new StatusEffectDataBuilder(this).Create<StatusEffectSporadicTrait>("Overshoot")
                 .WithType("")
+                .WithText($"<keyword={GUID}.overshoot>")
                 .WithCanBeBoosted(false)
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
@@ -900,6 +929,37 @@ namespace PvZHMod
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
                     ((StatusEffectApplyXWhenHit)data).effectToApply = TryGet<StatusEffectInstantSummonRandomZombieFromTribe>("Instant Summon Random Imp");
+                }));
+
+            assets.Add(
+                new StatusEffectDataBuilder(this).Create<StatusEffectInstantSummonRandomZombieFromTribe>("Instant Summon Random Dancing With Overshoot")
+                .WithCanBeBoosted(false)
+                .WithType("")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantSummonRandomZombieFromTribe)data).targetSummon = TryGet<StatusEffectSummon>("Summon Plep");
+                    ((StatusEffectInstantSummonRandomZombieFromTribe)data).withEffects = new StatusEffectData[]
+                    {
+                        TryGet<StatusEffectData>("Overshoot"),
+                        TryGet<StatusEffectData>("MultiHit")
+                    };
+                    ((StatusEffectInstantSummonRandomZombieFromTribe)data).zombies = ConjureZombie.Dancing.zombies;
+                }));
+
+            assets.Add(
+                StatusCopy("When Deployed Summon Wowee", "When Deployed Summon Random Dancing With Overshoot")
+                .WithText($"When deployed, summon a random Dancing zombie, and it gets <keyword={GUID}.overshoot>.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenDeployed)data).effectToApply = TryGet<StatusEffectInstantSummonRandomZombieFromTribe>("Instant Summon Random Dancing With Overshoot");
+                }));
+
+            assets.Add(
+                StatusCopy("Boost Damage Equal To Scrap", "Bonus Damage If Row Full")
+                .WithText("Deal <{a}> additional damage if the target's row is full.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectBonusDamageEqualToX)data).scriptableAmount = ScriptableObject.CreateInstance<ScriptableBonusDamageIfRowFull>();
                 }));
 
             ///////////////////////////////////////////////////////////////////////////////
