@@ -17,7 +17,9 @@ namespace PvZHMod
             }
             var dmg = 0;
             List<Entity> alliesInRow = entity.GetAlliesInRow();
-            if (alliesInRow.Count >= 3)
+            Debug.Log("In ScriptableBonusDamageIfRowFull.Get()");
+            Debug.Log($"entity.GetAlliesInRow.Count = {entity.GetAlliesInRow().Count}");
+            if (alliesInRow.Count >= 2)
             {
                 dmg = ((entity._data.startWithEffects[0].count + entity.effectBonus) * Mathf.CeilToInt(entity.effectFactor));
             }

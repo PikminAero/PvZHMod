@@ -586,12 +586,12 @@ namespace PvZHMod
                 .WithCardType("Item")
                 .SubscribeToAfterAllBuildEvent(delegate (CardData data)
                 {
-                    data.attackEffects =
+                    data.startWithEffects =
                     [
                         SStack("Bonus Damage If Row Full",3)
                     ];
                 }));
-
+            
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
