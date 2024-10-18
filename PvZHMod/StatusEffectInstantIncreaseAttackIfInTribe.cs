@@ -13,9 +13,14 @@ namespace PvZHMod
 
         public override IEnumerator Process()
         {
-            if (tribe.Contains(target.name))
+            if (tribe.Contains(target.data.name))
             {
                 target.damage.current += (scriptableAmount ? scriptableAmount.Get(target) : GetAmount());
+                target.PromptUpdate();
+            }
+            else
+            {
+                target.damage.current += 0;
                 target.PromptUpdate();
             }
             yield return base.Process();
