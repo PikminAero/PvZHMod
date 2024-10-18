@@ -591,6 +591,20 @@ namespace PvZHMod
                         SStack("Bonus Damage If Row Full",3)
                     ];
                 }));
+
+            // Aerobics Instructor
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("Aerobics", "Aerobics Instructor")
+                .SetSprites("Aerobics.png", "crazy_zombie_bg.png")
+                .SetStats(3, 2, 4)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("On Card Played Increase Attack To Dancings",2)
+                    ];
+                }));
             
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
@@ -962,6 +976,24 @@ namespace PvZHMod
                     ((StatusEffectBonusDamageEqualToX)data).scriptableAmount = ScriptableObject.CreateInstance<ScriptableBonusDamageIfRowFull>();
                     ((StatusEffectBonusDamageEqualToX)data).on = StatusEffectBonusDamageEqualToX.On.ScriptableAmount;
                     ((StatusEffectBonusDamageEqualToX)data).health = false;
+                }));
+
+            assets.Add(
+                StatusCopy("On Card Played Apply Attack To Self", "On Card Played Increase Attack To Dancings")
+                .WithText("Give + <{a}> <keyword=attack> to all Dancing Zombies.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXOnCardPlayed)data).applyToFlags = StatusEffectApplyX.ApplyToFlags.Allies;
+                    ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Increase Attack To Dancings");
+                }));
+
+            assets.Add(
+                new StatusEffectDataBuilder(this).Create<StatusEffectInstantIncreaseAttackIfInTribe>("Increase Attack To Dancings")
+                .WithCanBeBoosted(true)
+                .WithType("")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectInstantIncreaseAttackIfInTribe)data).tribe = ConjureZombie.Dancing.zombies;
                 }));
 
             ///////////////////////////////////////////////////////////////////////////////
