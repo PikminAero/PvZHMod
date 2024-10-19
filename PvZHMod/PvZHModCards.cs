@@ -607,7 +607,25 @@ namespace PvZHMod
                     ];
                 }));
 
+            // Disco Dance Floor: [AWAIT FUSION]
+
             // Abracadver: Trigger when Leader is hurt, Aimless, Regular Countdown
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("Abracadaver","Abracadaver")
+                .SetSprites("Abracadaver.png","crazy_zombie_bg.png")
+                .SetStats(2,3,3)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("Trigger When Leader Is Hit",1)
+                    ];
+                    data.traits =
+                    [
+                        TStack("Aimless",1)
+                    ];
+                }));
 
             // Fireworks Zombie: When deployed, deal 1 damage to everything (ApplyToFlags.Allies + ApplyToFlags.Enemies)
 
@@ -639,12 +657,11 @@ namespace PvZHMod
 
             // Garg Feast: Consume, MultiHit 3, Summon a random Gargantuar (Legendary)
 
-            // Fruitcake: 7 damage, summon a Plum, Earth Berry or Beeberry on the enemy sid
+            // Fruitcake: 7 damage, summon a Plum, Earth Berry or Beeberry on the enemy side
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
-
 
             assets.Add(
                 StatusCopy("Summon Fallow", "Summon Backup Dancer")
@@ -1025,6 +1042,17 @@ namespace PvZHMod
                     ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Increase Attack");
                 }));
 
+            assets.Add(
+                StatusCopy("Trigger When Ally Is Hit", "Trigger When Leader Is Hit")
+                .WithText("Trigger when your leader is hit.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    var constraint = ScriptableObject.CreateInstance<TargetConstraintIsUnit>();
+                    constraint.mustBeMiniboss = true;
+                    constraint.not = true;
+                    ((StatusEffectApplyXWhenAllyIsHit)data).applyConstraints = new TargetConstraint[] { constraint };
+                }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
@@ -1043,6 +1071,8 @@ namespace PvZHMod
             // Bullseye: Ignore on hit effects? Backup: ignore Shell/Block
 
             // Legendary: The card has Fragile and Hogheaded
+
+            // Fusion: ????????
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM KEYWORDS
