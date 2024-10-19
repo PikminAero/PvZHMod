@@ -1047,9 +1047,8 @@ namespace PvZHMod
                 .WithText("Trigger when your leader is hit.")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
-                    var constraint = ScriptableObject.CreateInstance<TargetConstraintIsUnit>();
-                    constraint.mustBeMiniboss = true;
-                    constraint.not = true;
+                    var constraint = ScriptableObject.CreateInstance<TargetConstraintIsCardType>();
+                    constraint.allowedTypes = [TryGet<CardType>("Leader")];
                     ((StatusEffectApplyXWhenAllyIsHit)data).targetConstraints = new TargetConstraint[] { constraint };
                 }));
 
