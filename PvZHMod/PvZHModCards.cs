@@ -1051,6 +1051,17 @@ namespace PvZHMod
                     
                 }));
             */
+
+            assets.Add(
+                new StatusEffectDataBuilder(this).Create<StatusEffectApplyXWhenLeaderIsHit>("Trigger When Leader Is Hit")
+                .WithCanBeBoosted(false)
+                .WithIsReaction(true)
+                .WithText("Trigger when your leader is hit.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenLeaderIsHit)data).effectToApply = TryGet<StatusEffectData>("Trigger");
+                }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
