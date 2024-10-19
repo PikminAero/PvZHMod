@@ -1042,16 +1042,15 @@ namespace PvZHMod
                     ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Increase Attack");
                 }));
 
+            /*
             assets.Add(
                 StatusCopy("Trigger When Ally Is Hit", "Trigger When Leader Is Hit")
                 .WithText("Trigger when your leader is hit.")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
-                    var constraint = ScriptableObject.CreateInstance<TargetConstraintIsCardType>();
-                    constraint.allowedTypes = [TryGet<CardType>("Leader")];
-                    ((StatusEffectApplyXWhenAllyIsHit)data).targetConstraints = new TargetConstraint[] { constraint };
+                    
                 }));
-
+            */
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////

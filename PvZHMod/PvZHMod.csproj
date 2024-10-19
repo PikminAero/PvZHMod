@@ -451,6 +451,7 @@
     <Compile Include="ScriptableString.cs" />
     <Compile Include="StatusEffectApplyXWhenCertainAllyIsKilled.cs" />
     <Compile Include="StatusEffectApplyXWhenInk.cs" />
+    <Compile Include="StatusEffectApplyXWhenLeaderIsHit.cs" />
     <Compile Include="StatusEffectConditionnalBonusDamage.cs" />
     <Compile Include="StatusEffectGainHealthAndAttack.cs" />
     <Compile Include="StatusEffectIgnoreDamageOnHit.cs" />
