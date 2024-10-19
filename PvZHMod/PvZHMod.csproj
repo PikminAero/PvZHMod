@@ -454,7 +454,7 @@
     <Compile Include="StatusEffectConditionnalBonusDamage.cs" />
     <Compile Include="StatusEffectGainHealthAndAttack.cs" />
     <Compile Include="StatusEffectIgnoreDamageOnHit.cs" />
-    <Compile Include="StatusEffectInstantIncreaseAttackIfInTribe.cs" />
+    <Compile Include="TargetConstraintInTribe.cs" />
     <Compile Include="StatusEffectInstantSummonRandomZombieFromTribe.cs" />
     <Compile Include="StatusEffectSporadicTrait.cs" />
     <Compile Include="StatusEffectTemporaryTraitRemove.cs" />

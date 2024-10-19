@@ -602,10 +602,45 @@ namespace PvZHMod
                 {
                     data.startWithEffects =
                     [
-                        SStack("On Card Played Increase Attack To Dancings",2)
+                        SStack("On Card Played Increase Attack To Dancings",2),
+                        SStack("On Card Played Apply Attack To Self",2)
                     ];
                 }));
-            
+
+            // Abracadver: Trigger when Leader is hurt, Aimless, Regular Countdown
+
+            // Fireworks Zombie: When deployed, deal 1 damage to everything (ApplyToFlags.Allies + ApplyToFlags.Enemies)
+
+            // Gas Giant: When hurt, deal 1 damage to everything. Explode 5
+
+            // Zombie's Best Friend: Summon a random Zombie with Sun <= 2 or 3 (or check stats?)    
+
+            // Moon Base Z: While Active, Apply Overshoot (Temp Longshot + MultiHit 1)
+
+            // Disco-Naut: While active, cards with <= 2 Attack have Bullseye
+
+            // Quickdraw Con-Man: Bullseye, No Sun, 1 damage, Hits All Enemies, Trigger when the Redraw Bell is hit
+
+            // Barrel o' Deadbeards: When destroyed, do 1 damage to everything. Summon Captain Deadbeard
+
+            // Captain Deadbeard: 3,4,3
+
+            // Quazar Wizard: When deployed: if there is an ally in the row, Conjure a Superpower
+
+            // Valkyrie: While in hand, get +2 atk when an ally is destroyed
+
+            // Tankylosaurus: Trigger when a card is drawn (Legendary)
+
+            // Headhunter's Hat: Sacrifice an ally, summon Headhunter (Legendary)
+
+            // Headhunter: Bullseye, 6,5,4, Trigger when a Dancing card is played (Legendary)
+
+            // Binary Stars: All allies deal double damage (Legendary)
+
+            // Garg Feast: Consume, MultiHit 3, Summon a random Gargantuar (Legendary)
+
+            // Fruitcake: 7 damage, summon a Plum, Earth Berry or Beeberry on the enemy sid
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM STATUS EFFECTS
             ///////////////////////////////////////////////////////////////////////////////
@@ -983,17 +1018,11 @@ namespace PvZHMod
                 .WithText("Give + <{a}> <keyword=attack> to all Dancing Zombies.")
                 .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
                 {
+                    var constraint = ScriptableObject.CreateInstance<TargetConstraintInTribe>();
+                    constraint.tribe = ConjureZombie.Dancing.zombies;
+                    ((StatusEffectApplyXOnCardPlayed)data).applyConstraints = new TargetConstraint[] { constraint };
                     ((StatusEffectApplyXOnCardPlayed)data).applyToFlags = StatusEffectApplyX.ApplyToFlags.Allies;
-                    ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Increase Attack To Dancings");
-                }));
-
-            assets.Add(
-                new StatusEffectDataBuilder(this).Create<StatusEffectInstantIncreaseAttackIfInTribe>("Increase Attack To Dancings")
-                .WithCanBeBoosted(true)
-                .WithType("")
-                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
-                {
-                    ((StatusEffectInstantIncreaseAttackIfInTribe)data).tribe = ConjureZombie.Dancing.zombies;
+                    ((StatusEffectApplyXOnCardPlayed)data).effectToApply = TryGet<StatusEffectData>("Increase Attack");
                 }));
 
             ///////////////////////////////////////////////////////////////////////////////
@@ -1010,6 +1039,10 @@ namespace PvZHMod
                         trait.effects = new StatusEffectData[] { TryGet<StatusEffectData>("Set Attack To Overshoot Stacks") };
                     }));
             */
+
+            // Bullseye: Ignore on hit effects? Backup: ignore Shell/Block
+
+            // Legendary: The card has Fragile and Hogheaded
 
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM KEYWORDS
