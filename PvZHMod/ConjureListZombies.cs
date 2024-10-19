@@ -99,6 +99,7 @@ namespace PvZHMod
                 $"{GUID}.FlamencoZombie",
                 $"{GUID}.CongaZombie",
                 $"{GUID}.CosmicDancer",
+                $"{GUID}.Aerobics",
             };
 
             public static List<String> tricks = new List<string>()

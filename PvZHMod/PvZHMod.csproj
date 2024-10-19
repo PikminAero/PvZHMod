@@ -450,9 +450,11 @@
     <Compile Include="ScriptableRandomZombie.cs" />
     <Compile Include="ScriptableString.cs" />
     <Compile Include="StatusEffectApplyXWhenCertainAllyIsKilled.cs" />
+    <Compile Include="StatusEffectApplyXWhenInk.cs" />
     <Compile Include="StatusEffectConditionnalBonusDamage.cs" />
     <Compile Include="StatusEffectGainHealthAndAttack.cs" />
     <Compile Include="StatusEffectIgnoreDamageOnHit.cs" />
+    <Compile Include="TargetConstraintInTribe.cs" />
     <Compile Include="StatusEffectInstantSummonRandomZombieFromTribe.cs" />
     <Compile Include="StatusEffectSporadicTrait.cs" />
     <Compile Include="StatusEffectTemporaryTraitRemove.cs" />
