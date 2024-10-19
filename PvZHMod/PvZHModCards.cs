@@ -1051,7 +1051,12 @@ namespace PvZHMod
                 {
                     data.effects = new CardData.StatusEffectStacks[1] { SStack("On Kill Trigger", 1) };
                 }));
-            
+
+            ///////////////////////////////////////////////////////////////////////////////
+            /// TESTING AREA
+            ///////////////////////////////////////////////////////////////////////////////
+
+
             return assets.OfType<T>().ToList();     //Return the correct builders.
         }
 
