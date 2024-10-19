@@ -1050,7 +1050,7 @@ namespace PvZHMod
                     var constraint = ScriptableObject.CreateInstance<TargetConstraintIsUnit>();
                     constraint.mustBeMiniboss = true;
                     constraint.not = true;
-                    ((StatusEffectApplyXWhenAllyIsHit)data).applyConstraints = new TargetConstraint[] { constraint };
+                    ((StatusEffectApplyXWhenAllyIsHit)data).targetConstraints = new TargetConstraint[] { constraint };
                 }));
 
             ///////////////////////////////////////////////////////////////////////////////
