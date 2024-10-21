@@ -15,19 +15,11 @@ namespace PvZHMod
         public override void Init()
         {
             OnCardPlayed += Check;
-            OnTurnEnd += ToggleFlag;
+            //OnTurnEnd += ToggleFlag;
         }
         public override bool RunCardPlayedEvent(Entity entity, Entity[] targets)
         {
-            if (flagEffectEnabled)
-            {
-                flagEffectEnabled = false;
-                return entity == target;
-            }
-            else
-            {
-                return false;
-            }
+            return entity == target;
         }
 
         /*
@@ -38,8 +30,14 @@ namespace PvZHMod
         */
         private IEnumerator Check(Entity entity, Entity[] targets)
         {
-            flagEffectEnabled = false;
-            yield return EndRoutine();
+            /*
+            if (entity != target)
+            {
+                yield break;
+            }
+            target.StartCoroutine(EndRoutine());
+            */
+            yield return Remove();
         }
 
         private IEnumerator ToggleFlag(Entity entity)

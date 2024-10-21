@@ -439,7 +439,29 @@ namespace PvZHMod
                     ];
                    
                 }));
-                
+
+            //////////////////////////////////////////////////////////////
+            /// TESTING
+            //////////////////////////////////////////////////////////////
+
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("WinCannon", "Win Cannon")
+                .SetSprites("LooseCannon.png", "crazy_zombie_bg.png")
+                .SetStats(9, 1, 2)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("MultiHit",1),
+                        SStack("When Hit Apply Removeable Longshot To Self",1)
+                    ];
+
+                }));
+
+            //////////////////////////////////////////////////////////////
+            /// TESTING DONE
+            //////////////////////////////////////////////////////////////
 
             // Gravestone (Exploding Imp)
             assets.Add(
@@ -895,7 +917,7 @@ namespace PvZHMod
                     ((StatusEffectApplyXPreTrigger)data).effectToApply = TryGet<StatusEffectData>("Overshoot");
                 }));
 
-
+            
             assets.Add(
                 StatusCopy("Temporary Barrage", "Temporary Longshot")
                 .WithText("")
@@ -914,7 +936,26 @@ namespace PvZHMod
                 {
                     ((StatusEffectSporadicTrait)data).trait = TryGet<TraitData>("Longshot");
                 }));
-            
+
+
+            assets.Add(
+                new StatusEffectDataBuilder(this).Create<StatusEffectTemporaryTraitRemove>("Removeable Longshot")
+                .WithText("When triggered for the first time, has {0}")
+                .WithTextInsert($"<keyword={GUID}.harpoon>")
+                .WithType("")
+                .WithCanBeBoosted(false)
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectTemporaryTraitRemove)data).trait = TryGet<TraitData>("Harpoon Strike");
+                }));
+
+            assets.Add(
+                StatusCopy("When Hit Apply Ink To Self", "When Hit Apply Removeable Longshot To Self")
+                .WithText($"When hit, gain <keyword={GUID}.harpoon> and trigger.")
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectApplyXWhenHit)data).effectToApply = TryGet<StatusEffectData>("Removeable Longshot");
+                }));
            
             /*
             assets.Add(
@@ -1083,6 +1124,20 @@ namespace PvZHMod
 
             // Fusion: ????????
 
+            assets.Add(
+                new TraitDataBuilder(this).Create("Harpoon Strike")
+                .SubscribeToAfterAllBuildEvent(
+                    (trait) =>
+                    {
+                        trait.keyword = TryGet<KeywordData>("harpoon");
+                        trait.effects = new StatusEffectData[]
+                        {
+                            TryGet<StatusEffectData>("On Hit Pull Target"),
+                            TryGet<StatusEffectData>("Hit Furthest Target"),
+                            TryGet<StatusEffectData>("Trigger")
+                        };
+                    }));
+
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM KEYWORDS
             ///////////////////////////////////////////////////////////////////////////////
@@ -1122,6 +1177,14 @@ namespace PvZHMod
                 .WithBodyColour(new Color(0.50f, 0.50f, 0.50f))
                 .WithCanStack(true)
                 );
+
+            assets.Add(
+                new KeywordDataBuilder(this)
+                .Create("harpoon")
+                .WithTitle("Harpoon Strike")
+                .WithDescription("Have <keyword=longshot> and <keyword=pull>")
+                .WithShowName(true)
+                .WithCanStack(false));
 
             /*
             assets.Add(
