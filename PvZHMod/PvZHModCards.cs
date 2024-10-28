@@ -671,11 +671,30 @@ namespace PvZHMod
 
             // Tankylosaurus: Trigger when a card is drawn (Legendary)
 
+
+
             // Headhunter's Hat: Sacrifice an ally, summon Headhunter (Legendary)
 
             // Headhunter: Bullseye, 6,5,4, Trigger when a Dancing card is played (Legendary)
 
             // Binary Stars: All allies deal double damage (Legendary)
+            
+            assets.Add(
+                new CardDataBuilder(this).CreateUnit("BinaryStars", "Binary Stars")
+                .SetSprites("BinaryStars.png", "crazy_zombie_bg.png")
+                .SetStats(3, 3, 3)
+                .WithCardType("Friendly")
+                .SubscribeToAfterAllBuildEvent(delegate (CardData data)
+                {
+                    data.startWithEffects =
+                    [
+                        SStack("While Active Double Allies Attack",1)
+                    ];
+                    data.traits =
+                    [
+                        TStack("Legendary",1)
+                    ];
+                }));
 
             // Garg Feast: Consume, MultiHit 3, Summon a random Gargantuar (Legendary)
 
@@ -1103,6 +1122,15 @@ namespace PvZHMod
                     ((StatusEffectApplyXWhenLeaderIsHit)data).effectToApply = TryGet<StatusEffectData>("Trigger");
                 }));
 
+            assets.Add(
+                StatusCopy("While Active Barrage To Allies", "While Active Double Allies Attack")
+                .WithText("While active, all allies have double <keyword=attack>.")
+                .WithCanBeBoosted(false)
+                .SubscribeToAfterAllBuildEvent(delegate (StatusEffectData data)
+                {
+                    ((StatusEffectWhileActiveX)data).effectToApply = TryGet<StatusEffectData>("Double Attack");
+                }));
+            
             ///////////////////////////////////////////////////////////////////////////////
             /// CUSTOM TRAITS
             ///////////////////////////////////////////////////////////////////////////////
@@ -1121,6 +1149,18 @@ namespace PvZHMod
             // Bullseye: Ignore on hit effects? Backup: ignore Shell/Block
 
             // Legendary: The card has Fragile and Hogheaded
+            assets.Add(
+                new TraitDataBuilder(this).Create("Legendary")
+                .SubscribeToAfterAllBuildEvent(
+                    (trait) =>
+                    {
+                        trait.keyword = TryGet<KeywordData>("legendary");
+                        trait.effects = new StatusEffectData[]
+                        {
+                            TryGet<StatusEffectData>("Cannot Increase Max Health"),
+                            TryGet<StatusEffectData>("Cannot Recall"),
+                        };
+                    }));
 
             // Fusion: ????????
 
@@ -1184,6 +1224,17 @@ namespace PvZHMod
                 .WithTitle("Harpoon Strike")
                 .WithDescription("Have <keyword=longshot> and <keyword=pull>")
                 .WithShowName(true)
+                .WithCanStack(false));
+
+            assets.Add(
+                new KeywordDataBuilder(this)
+                .Create("legendary")
+                .WithTitle("Legendary")
+                .WithDescription("Have <keyword=pigheaded> and <keyword=fragile>.|Legendary cards have strong effects!")
+                .WithShowName(true)
+                .WithTitleColour(new UnityEngine.Color(0.85f, 0.45f, 0.45f))
+                .WithNoteColour(new Color(0.85f, 0.45f, 0.45f))
+                .WithBodyColour(new Color(0.50f, 0.50f, 0.50f))
                 .WithCanStack(false));
 
             /*
